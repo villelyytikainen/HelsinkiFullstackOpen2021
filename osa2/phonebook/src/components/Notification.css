@@ -1,0 +1,9 @@
+.notification{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    width: 40vw;
+    height: 2rem;
+    background:grey;
+    border-radius: 1rem;
+}

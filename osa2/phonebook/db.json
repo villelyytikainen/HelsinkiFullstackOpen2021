@@ -1,0 +1,19 @@
+{
+  "personList": [
+    {
+      "name": "Arto Hellas",
+      "phoneNumber": "123",
+      "id": 1
+    },
+    {
+      "name": "lapamies",
+      "phoneNumber": "040731233",
+      "id": 2
+    },
+    {
+      "name": "neppari",
+      "phoneNumber": "000123123",
+      "id": 3
+    }
+  ]
+}
