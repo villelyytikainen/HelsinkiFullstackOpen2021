@@ -1,7 +1,7 @@
 import React from 'react';
 import './Notification.css';
 
-export default function Notification({message,color}) {
+export default function Notification({message}) {
     let messageColor = null;
 
     message.includes('error') ? messageColor = 'red' : messageColor = 'green'

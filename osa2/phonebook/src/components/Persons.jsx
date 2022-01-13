@@ -1,8 +1,9 @@
 import Person from "./Person";
 
+
 const Persons = (props) => {
-    console.log(props)
-    if(props.filtered === ""){
+    console.log(props.persons)
+    if(props.filtered.length === 0){
         return(
         <ul style={{display: "flex", flexDirection: "column", alignItems:"start", width: "300px"}}>
             {props.persons.map(person => (

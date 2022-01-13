@@ -12,14 +12,12 @@ const App = () => {
   const [filtered, setFiltered] = useState([])
   const [notificationMessage, setNotificationMessage] = useState('')
 
-  console.log(1)
   useEffect(() => {
     personService.getAll().then(initialPersons => {
       setPersons(initialPersons)
     })
   }, [])
 
-console.log(3)
   const addName = (event) => {
     event.preventDefault();
     const newPerson = {
@@ -36,6 +34,12 @@ console.log(3)
             personService.update(per.id, newPersonInformation)
               .then(res => {
                 setPersons(persons.map(pers => pers.id === newPersonInformation.id ? newPersonInformation : pers))
+                setNotificationMessage(`${newPersonInformation.name} phonenumber updated`)
+                resetNotificationMessage();
+              }).catch(error => {
+                console.log(error)
+                setNotificationMessage(`Contact not found!`)
+                resetNotificationMessage();
               })
           }
         }
@@ -48,7 +52,10 @@ console.log(3)
     else{
       personService.create(newPerson).then(returnedPerson => {
         setPersons(persons.concat(returnedPerson))
+        setNotificationMessage(`${returnedPerson.name} added to the phonebook`)
+        resetNotificationMessage();
         setNewName('')
+        setNewPhone('')
       })
     }
   }
@@ -80,16 +87,25 @@ console.log(3)
     if(confirmDelete){
       personService.deleteContact(contact.id).then(() => {
         setPersons(persons.filter(person => person !== contact))
+        setNotificationMessage(`Contact ${contact.name} was removed from the phonebook.`)
+        resetNotificationMessage();
       })
       .catch(error => {
-        setNotificationMessage(`Contact ${contact} was already removed from the phonebook.`)
+        setNotificationMessage(`Contact ${contact.name} was already removed from the phonebook.`)
+        resetNotificationMessage();
       });
     }
   }
 
+  const resetNotificationMessage = () => {
+    setTimeout(() => {
+      setNotificationMessage('')
+    },5000)
+  }
+
   return (
     <div>
-      <Notification message={notificationMessage} color='red'/>
+      <Notification message={notificationMessage}/>
       <h2>Phonebook</h2>
       <Filter 
         filtered={filterNames}/>
@@ -117,6 +133,6 @@ export default App;
 
 
 /*
- - Filtering method doesn't still work as intended, 
+ - Filtering method still doesn't work as intended, 
    app renders all the contacts only when user uses the filtering input field
 */
